@@ -157,67 +157,56 @@ def send_message_to_google(message, sender):
         print("An error occurred: {}".format(e))
         raise e
 
-
-
 def main():
 
     # parse args
+    nb_of_line = 0
+    with open("settings.txt", "r") as configfile:
+        for lines in configfile:
+            if nb_of_line == 0 : sender = lines.rstrip('\n')
+            if nb_of_line == 4 : to_csv = lines.rstrip('\n')
+            if nb_of_line == 7 : dest_file = lines.rstrip('\n')
+            if nb_of_line == 10 : subject = lines.rstrip('\n')
+            if nb_of_line == 13 : name = lines.rstrip('\n')
+            if nb_of_line == 16 : smtp_server = lines.rstrip('\n')
+            if nb_of_line == 19 : html_file = lines.rstrip('\n')
+            if nb_of_line == 22 : msg_plain = lines.rstrip('\n')
+            nb_of_line += 1;
     ap = argparse.ArgumentParser()
-    ap.add_argument("sender", help="email from")
-    ap.add_argument("to_csv", help="comma separated list of emails to send to")
-    ap.add_argument("subject", help="email subject line")
-    ap.add_argument("name", help="name of person receiving email")
-    ap.add_argument("smtp", help="SMTP server")
-    ap.add_argument("--port", type=int, default=25, help="SMTP port")
-    ap.add_argument("-t", "--tls", help="use TLS", action="store_true")
-    ap.add_argument("-u", "--user", help="smtp user")
-    ap.add_argument("-p", "--password", help="smtp password")
-    ap.add_argument("-f", "--htmlfile", help= "body html code")
-    ap.add_argument("--debug", help="show verbose message envelope", action="store_true")
     ap.add_argument("--attach", nargs='*',help="variable list of files to attach")
 
     args = ap.parse_args()
-    sender = args.sender
-    to_csv = args.to_csv
-    subject = args.subject
-    name = args.name
-    smtp_server = args.smtp
-    smtp_port = args.port
-    use_tls = args.tls
-    smtp_user = args.user
-    smtp_password = args.password
-    html_file = args.htmlfile
-    debug = args.debug
     attachment_file_list = args.attach
 
     # HTML message, would use mako templating in real scenario
-    file_html = open(html_file, "r")
+    file_html = open(html_file.rstrip('\n'), "r")
     msg_html = file_html.read()
-
-    # text message, would use mako templating in real scenario
-    msg_plain = ("Bonjour, Covitect est ravi de vous présenter ses masques de protections individuelle").format(name)
 
     # open CSV file and turn it in dictionnary
     currentline = []
-    with open("addr.txt", "r") as filestream:
+    with open(dest_file, "r") as filestream:
         for line in filestream:
             currentline.append(line)
     
     # send message
     if smtp_server == "google.com":
         # looping on each adress & send mail
+        no_of_mail = 1
         for addr in currentline:
+            if no_of_mail >= 450:
+                print("Limit of 450 mail by 24h reached")
+                break
             print("*****************\n")
+            print("Contact n°" + str(no_of_mail))
             message = create_message_with_attachment(sender, addr, subject, msg_html, msg_plain, attachment_file_list)
             send_message_to_google(message, sender)
             print("*****************\n")
             time.sleep(0.1)
+            no_of_mail += 1
     else:
         send_message_via_relay(message, smtp_server, smtp_port, 
                                use_tls, smtp_user, smtp_password, sender, to_csv, debug)
 
-    if debug:
-        print(message)
 
     print("\nSUCCESS: email sent to {}".format(to_csv))
 

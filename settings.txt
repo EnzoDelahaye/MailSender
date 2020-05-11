@@ -1,0 +1,24 @@
+sender ("me" as default):
+me
+--------
+destination ("all@gmail.com" as default):
+all@gmail.com
+--------
+destination file:
+client2.txt
+-------
+subject:
+Obtenez votre masque COVITECT
+--------
+name:
+COVITECT
+--------
+smtp ("google.com" as default):
+google.com
+--------
+html file:
+covitect.html
+--------
+message plain:
+Bonjour, Covitect a le plaisir de vous présenter ses masques de protections individuelle
+-------- 
