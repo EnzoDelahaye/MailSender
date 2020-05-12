@@ -5,20 +5,20 @@ destination ("all@gmail.com" as default):
 all@gmail.com
 --------
 destination file:
-client2.txt
+yourFileWithEmailAdresses.txt
 -------
 subject:
-Obtenez votre masque COVITECT
+Your Mail Subject
 --------
 name:
-COVITECT
+Your Company name
 --------
 smtp ("google.com" as default):
 google.com
 --------
 html file:
-covitect.html
+YourHTMLMailBody.html
 --------
 message plain:
-Bonjour, Covitect a le plaisir de vous présenter ses masques de protections individuelle
+Your Message plain for preview
 -------- 
