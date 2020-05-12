@@ -163,7 +163,7 @@ def main():
     nb_of_line = 0
     with open("settings.txt", "r") as configfile:
         for lines in configfile:
-            if nb_of_line == 0 : sender = lines.rstrip('\n')
+            if nb_of_line == 1 : sender = lines.rstrip('\n')
             if nb_of_line == 4 : to_csv = lines.rstrip('\n')
             if nb_of_line == 7 : dest_file = lines.rstrip('\n')
             if nb_of_line == 10 : subject = lines.rstrip('\n')
@@ -201,7 +201,7 @@ def main():
             message = create_message_with_attachment(sender, addr, subject, msg_html, msg_plain, attachment_file_list)
             send_message_to_google(message, sender)
             print("*****************\n")
-            time.sleep(0.1)
+            time.sleep(0.4)
             no_of_mail += 1
     else:
         send_message_via_relay(message, smtp_server, smtp_port, 
