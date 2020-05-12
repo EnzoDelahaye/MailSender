@@ -30,9 +30,9 @@ Edit the file 'settings.txt' with your own values
 
 Your destinations file containing all mail adresses have to be formated as:
 ```sh
-$ email1@mail.com
-$ email2@mail.com
-$ email3@mail.com
+email1@mail.com
+email2@mail.com
+email3@mail.com
 ```
 
 THEN, Launch the script by
