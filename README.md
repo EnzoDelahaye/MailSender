@@ -28,6 +28,13 @@ $ pip3 install --upgrade google-api-python-client google-auth-httplib2 google-au
 
 Edit the file 'settings.txt' with your own values
 
+Your destinations file containing all mail adresses have to be formated as:
+```sh
+$ email1@mail.com
+$ email2@mail.com
+$ email3@mail.com
+```
+
 THEN, Launch the script by
 
 ```sh
