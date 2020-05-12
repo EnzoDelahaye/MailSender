@@ -9,7 +9,7 @@ Clone the repository from GitHub
 
 ```sh
 $ git clone "https://github.com/EnzoDelahaye/MailSender/"
-$ cd CNA_groundhog_2019
+$ cd MailSender
 ```
 
 Then, setup your GMAIL API by following instructions on: https://developers.google.com/gmail/api/quickstart/python
